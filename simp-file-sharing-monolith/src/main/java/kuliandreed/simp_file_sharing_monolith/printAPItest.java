@@ -14,4 +14,9 @@ public class printAPItest {
   public ResponseEntity<String> hellotest() {
     return new ResponseEntity("Hello test", HttpStatus.ACCEPTED);
   }
+
+  @GetMapping("/test2")
+  public String test2() {
+    return "HELLOOOOO";
+  }
 }
