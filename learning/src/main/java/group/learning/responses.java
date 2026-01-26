@@ -23,6 +23,12 @@ public class responses {
   @GetMapping("/return_ok")
   public ResponseEntity<String> return_ok() {
     return new ResponseEntity<String>("ok!", HttpStatus.OK);
+
+    /*
+     * Status code
+     * Header
+     * Body
+     */
   }
 
   @GetMapping("/return_ok_v2")
@@ -102,8 +108,35 @@ public class responses {
     return ResponseEntity.ok("Success");
   }
 
-  @GetMapping("/uppercase/{str}")
-  public String upper(@PathVariable String str) {
-    return str.toUpperCase();
+  @GetMapping("/uppercase/{stringy}")
+  // if there is a questionmark in the PathVariable then it will be treated as a
+  // RequestParam, this is standard to HTTP
+  public String upper(@PathVariable String stringy) {
+    return stringy.toUpperCase();
+  }
+
+  @GetMapping("/combo/{number}")
+  public String combo_func(
+      @PathVariable int number,
+      @RequestParam(name = "string1", defaultValue = "STRING") String string,
+      @RequestParam(name = "string2", defaultValue = "MONEY") String string2) {
+    String res = "";
+    for (int i = 0; i < number; i++) {
+      res += string + string2;
+    }
+    return res;
+  }
+
+  @GetMapping("/combo_v2/{number}/{number2}")
+  public String combo_2(
+      @PathVariable(name = "number") int number,
+      @PathVariable(name = "number2") int number2,
+      @RequestParam(name = "string1", defaultValue = "STRING") String string,
+      @RequestParam(name = "string2", defaultValue = "MONEY") String string2) {
+    String res = "";
+    for (int i = 0; i < number; i++) {
+      res += string + string2 + number2;
+    }
+    return res;
   }
 }
