@@ -1,15 +1,12 @@
 package group.learning;
 
-import java.net.http.HttpResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.micrometer.core.ipc.http.HttpSender.Response;
 
 @RestController
 @RequestMapping("/responses")
@@ -81,6 +78,7 @@ public class responses {
 
   @GetMapping("/add_to_tally_amount")
   public ResponseEntity<String> add_to_tally(@RequestParam int amount) {
+    // http://localhost:8080/responses/add_to_tally?amount=5
     try {
       tally += amount;
     } catch (Exception e) {
@@ -93,6 +91,7 @@ public class responses {
 
   @GetMapping("/add_to_tally_v2")
   public ResponseEntity<String> add_to_tally_v2(@RequestParam(defaultValue = "1") int amount) { // Amount is optional
+    // http://localhost:8080/responses/add_to_tally_v2?amount=5
     try {
       tally += amount;
     } catch (Exception e) {
@@ -101,5 +100,10 @@ public class responses {
           .body(e.toString());
     }
     return ResponseEntity.ok("Success");
+  }
+
+  @GetMapping("/uppercase/{str}")
+  public String upper(@PathVariable String str) {
+    return str.toUpperCase();
   }
 }
