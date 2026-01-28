@@ -33,10 +33,10 @@ public class basic_auth {
   @GetMapping("/diceroll")
   public ResponseEntity<String> diceroll(
       @RequestHeader(name = "Token", required = true) String tokenHeader,
-      @RequestParam(defaultValue = "1") int times) {
+      @RequestParam(name = "times", defaultValue = "1") int times) {
 
     if (!tokenHeader.startsWith("Bearer ")) {
-      return ResponseEntity.badRequest().body("Missing authorisation token \"Token\" in header");
+      return ResponseEntity.badRequest().body("Missing valid authorisation token \"Token\" in header");
     }
 
     String token = tokenHeader.substring("Bearer ".length());
@@ -46,11 +46,16 @@ public class basic_auth {
     }
 
     if (!tokens.get(token)) {
-      return ResponseEntity.status(403).body("You do not have permission to roll the die");
+      return ResponseEntity.ok("The dice rolled " + (dice.nextInt(6) + 1));
     }
 
-    return ResponseEntity.ok("The dice rolled " + (dice.nextInt(6) + 1));
+    String rolls = "";
+    for (int i = 0; i < times; i++) {
+      rolls += "The dice rolled " + (dice.nextInt(6) + 1) + "\n";
+    }
+    return ResponseEntity.ok(rolls);
   }
+
   /*
    * Using JS to call the endpoint:
    * Go to your web browser and go to localhost:8080
