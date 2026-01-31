@@ -160,7 +160,7 @@ public class responses {
 
     return ResponseEntity.ok().
       header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=test.png")
-      .contentType(MediaType.valueOf("image/png"))
+      .contentType(MediaType.valueOf("image/png")) //Have to specify the file type, the rest is handled automatically
       .body(resource);
 
   }
