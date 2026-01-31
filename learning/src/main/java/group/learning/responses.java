@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 
 @RestController
 @RequestMapping("/responses")
@@ -139,4 +143,26 @@ public class responses {
     }
     return res;
   }
+
+  @GetMapping("/downloadRick")
+  public ResponseEntity<ClassPathResource> downloadRick() {
+
+    ClassPathResource resource = new ClassPathResource("Rick.mp4");
+
+    return ResponseEntity.ok().
+      header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Rick.mp4").
+      body(resource);
+  }
+
+  @GetMapping("/displayTest")
+  public ResponseEntity<ClassPathResource> displayTest() {
+    ClassPathResource resource = new ClassPathResource("test.png");
+
+    return ResponseEntity.ok().
+      header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=test.png")
+      .contentType(MediaType.valueOf("image/png"))
+      .body(resource);
+
+  }
+
 }
