@@ -1,4 +1,4 @@
-package group.learning;
+package group.learning.Backend;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

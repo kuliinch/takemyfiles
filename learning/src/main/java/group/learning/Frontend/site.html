@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takemyfiles.com</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Drag and drop -->
+    <div class="drag-container" id="dragContainer">
+      <div class="site-name">Takemyfiles.com</div>
+      <div class="drag-box">Drag your files here!</div>
+    </div>
+
+    <!-- Login panel -->
+    <div class="login-panel" id="loginPanel">
+      <form class="login-form">
+        <label for="username">Username or Email</label>
+        <input type="text" id="username" placeholder="Enter your username">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+
+    <!-- Pull tab -->
+    <div class="account-tab" id="accountTab">Accounts</div>
+  </div>
+
+  <script>
+    const accountTab = document.getElementById('accountTab');
+    const loginPanel = document.getElementById('loginPanel');
+    const dragContainer = document.getElementById('dragContainer');
+
+    let panelOpen = false;
+
+    accountTab.addEventListener('click', () => {
+      panelOpen = !panelOpen;
+
+      loginPanel.classList.toggle('open', panelOpen);
+      dragContainer.classList.toggle('shrink', panelOpen);
+      accountTab.classList.toggle('moved', panelOpen);
+    });
+    document.addEventListener('click', (e) => {
+      if (!loginPanel.contains(e.target) && !accountTab.contains(e.target)) {
+        loginPanel.classList.remove('open');
+        dragContainer.classList.remove('shrink');
+        accountTab.classList.remove('moved');
+      }
+    });
+  </script>
+</body>
+
+</html>

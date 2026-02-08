@@ -1,4 +1,4 @@
-package group.learning;
+package group.learning.Backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
